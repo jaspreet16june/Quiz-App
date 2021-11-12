@@ -5,7 +5,7 @@ const Trivia = () => {
         <div className = "trivia">
             <div className="question">what is your name </div>
             <div className="answers">
-                <div className="answer">Jaspreet</div>
+                <div className="answer wrong">Jaspreet</div>
                 <div className="answer">I</div>
                 <div className="answer">Me</div>
                 <div className="answer">Myself</div>
