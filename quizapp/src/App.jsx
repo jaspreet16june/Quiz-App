@@ -1,8 +1,79 @@
-import "../src/css/app.css";
+import "./css/app.css";
 import {useState} from "react";
-import Trivia from "./component/Trivia.jsx";
+import Trivia from "./component/Trivia";
 let App = () => {
-  const [questionNumber,setquestionNumber] = useState(1);
+  const [questionNumber,setQuestionNumber] = useState(1);
+  const [timeOut,setTimeOut] = useState(false)
+
+  const data = [
+    {
+      id: 1,
+      question: "which of the one is smallest amongst them?",
+      answers: [
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+      ],
+    },
+    {
+      id: 2,
+      question: "which of the one is smallest amongst them?",
+      answers: [
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+      ],
+    },
+    {
+      id:3,
+      question: "which of the one is smallest amongst them?",
+      answers: [
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: false,
+        },
+        {
+          text: "Oceans",
+          correct: true,
+        },
+      ],
+    },
+  ];
+
 
   const moneyPyramid = [
     { id: 1, amount: "$100" },
@@ -10,7 +81,7 @@ let App = () => {
     { id: 3, amount: "$300" },
     { id: 4, amount: "$500" },
     { id: 5, amount: "$1000" },
-    { id: 6, amount: "$2000" },
+    { id: 6, amount : "$2000" },
     { id: 7, amount: "$4000" },
     { id: 8, amount: "$8000" },
     { id: 9, amount: "$16000" },
@@ -20,6 +91,7 @@ let App = () => {
     { id: 13, amount: "$250000" },
     { id: 14, amount: "$500000" },
     { id: 15, amount: "$1000000" },
+
   ].reverse();
   return (
     <div className="app">
@@ -28,7 +100,10 @@ let App = () => {
           <div className="timer">30</div>
         </div>
         <div className="bottom">
-          <Trivia/>
+          <Trivia data = {data}
+          setTimeOut={setTimeOut}
+          questionNumber={questionNumber}
+          setQuestionNumber={setQuestionNumber}/>
         Questions
         </div>
       </div>

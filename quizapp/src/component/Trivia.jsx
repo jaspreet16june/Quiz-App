@@ -1,17 +1,58 @@
-import React from 'react'
-import "../css/trivia.css"
-const Trivia = () => {
-    return (
-        <div className = "trivia">
-            <div className="question">what is your name </div>
-            <div className="answers">
-                <div className="answer wrong">Jaspreet</div>
-                <div className="answer">I</div>
-                <div className="answer">Me</div>
-                <div className="answer">Myself</div>
-            </div>
-        </div>
-    )
-}
+import "../css/trivia.css";
+// import { useState,useEffect } from "react";
 
-export default Trivia
+// const Trivia = (data, setTimeout, questionNumber, setQuestionNumber) => {
+
+//   const [question, setQuestion] = useState(null); 
+  
+//   useEffect(() => {
+//     setQuestion(data[questionNumber - 1])
+//   }, [data, questionNumber])
+
+//   return (
+//     <div className="trivia">
+//       <div className="question">{question?.question }</div>
+//       <div className="answers">
+      
+//         {question?.answers.map((a) => (
+//           <div className = "answers">
+//             {a.text}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Trivia;
+
+
+
+import { useEffect, useState } from "react";
+
+
+export default function Trivia({
+  data,
+  questionNumber,
+  setQuestionNumber,
+  setTimeOut,
+}) {
+  const [question, setQuestion] = useState(null);
+ 
+  useEffect(() => {
+    setQuestion(data[questionNumber - 1]);
+  }, [data, questionNumber]); 
+
+  return (
+    <div className="trivia">
+      <div className="question">{question?.question}</div>
+      <div className="answers">
+        {question?.answers.map((a) => (
+          <div className="answer" >
+            {a.text}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
