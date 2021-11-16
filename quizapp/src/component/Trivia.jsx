@@ -1,35 +1,6 @@
 import "../css/trivia.css";
-// import { useState,useEffect } from "react";
-
-// const Trivia = (data, setTimeout, questionNumber, setQuestionNumber) => {
-
-//   const [question, setQuestion] = useState(null); 
-  
-//   useEffect(() => {
-//     setQuestion(data[questionNumber - 1])
-//   }, [data, questionNumber])
-
-//   return (
-//     <div className="trivia">
-//       <div className="question">{question?.question }</div>
-//       <div className="answers">
-      
-//         {question?.answers.map((a) => (
-//           <div className = "answers">
-//             {a.text}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Trivia;
-
-
 
 import { useEffect, useState } from "react";
-
 
 export default function Trivia({
   data,
@@ -38,17 +9,32 @@ export default function Trivia({
   setTimeOut,
 }) {
   const [question, setQuestion] = useState(null);
- 
+  const [selectAnswer, setSelectAnswer] = useState(null);
+  const [className, setClassName] = useState("null");
+
   useEffect(() => {
     setQuestion(data[questionNumber - 1]);
-  }, [data, questionNumber]); 
+  }, [data, questionNumber]);
 
+  const handleClick = (a) => {
+  
+    setSelectAnswer(a);
+  
+    setClassName("answer active");
+  
+    setTimeout(() => {
+      setClassName(a.correct ? "answer correct" : "answer wrong");
+    }, 3000);
+  
+  };
   return (
     <div className="trivia">
       <div className="question">{question?.question}</div>
       <div className="answers">
         {question?.answers.map((a) => (
-          <div className="answer" >
+          <div
+            className={selectAnswer === a ? className : "answer"}
+            onClick={() => handleClick(a)} >
             {a.text}
           </div>
         ))}
