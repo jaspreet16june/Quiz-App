@@ -1,10 +1,11 @@
 import "./css/app.css";
 import { useState } from "react";
 import Trivia from "./component/Trivia";
+
 let App = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
-  const [timeOut, setTimeOut] = useState(false);
-
+  const [stop, setStop] = useState(false);
+  const [earned, setEarned] = useState('$ 0');
   const data = [
     {
       id: 1,
@@ -94,18 +95,22 @@ let App = () => {
   return (
     <div className="app">
       <div className="main">
-        <div className="top">
+        {stop ? (<h1> You earned: {earned}</h1>):(
+       <>   
+          <div className="top">
           <div className="timer">30</div>
         </div>
         <div className="bottom">
           <Trivia
             data={data}
-            setTimeOut={setTimeOut}
+            setStop={setStop}
             questionNumber={questionNumber}
             setQuestionNumber={setQuestionNumber}
-          />
-          Questions
-        </div>
+            />
+            Questions
+          </div>
+      </>
+      )}
       </div>
       <div className="pyramid">
         <ul className="moneyList">
