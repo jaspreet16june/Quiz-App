@@ -3,7 +3,7 @@ import "../css/trivia.css";
 import { useEffect, useState } from "react";
 
 export default function Trivia({
-  data,
+  questions,
   questionNumber,
   setQuestionNumber,
   setStop
@@ -13,8 +13,8 @@ export default function Trivia({
   const [className, setClassName] = useState("null");
 
   useEffect(() => {
-    setQuestion(data[questionNumber - 1]);
-  }, [data, questionNumber]);
+    setQuestion(questions[questionNumber - 1]);
+  }, [questions, questionNumber]);
 
   const delay = (duration, callback)=>{
     setTimeout(()=>{
@@ -27,11 +27,11 @@ export default function Trivia({
     setSelectAnswer(a);
     setClassName("answer active");
   delay(3000, ()=>
-      setClassName(a.correct ? "answer correct" : "answer wrong")
+      setClassName(a.isCorrect ? "answer correct" : "answer wrong")
     );
 
     delay(6000,()=>{
-      if(a.correct){
+      if(a.isCorrect){
         setQuestionNumber((prev) => prev+1);
       }else{
         setSelectAnswer(null);
@@ -42,9 +42,9 @@ export default function Trivia({
 
   return (
     <div className="trivia">
-      <div className="question">{question?.question}</div>
+      <div className="question">{question?.description}</div>
       <div className="answers">
-        {question?.answers.map((a) => (
+        {question?.options.map((a) => (
           <div
             className={selectAnswer === a ? className : "answer"}
             onClick={() => handleClick(a)} >

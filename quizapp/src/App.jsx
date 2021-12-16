@@ -1,80 +1,24 @@
 import "./css/app.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Trivia from "./component/Trivia";
-
+import axios from "axios";
 let App = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [stop, setStop] = useState(false);
-  const [earned, setEarned] = useState('$ 0');
-  const data = [
-    {
-      id: 1,
-      question: "which of the one is smallest amongst them?",
-      answers: [
-        {
-          text: "Oceans",
-          correct: true,
-        },
-        {
-          text: "Continents",
-          correct: false,
-        },
-        {
-          text: "dam",
-          correct: false,
-        },
-        {
-          text: "stars",
-          correct: false,
-        },
-      ],
-    },
-    {
-      id: 2,
-      question: "which of the one is smallest amongst them?",
-      answers: [
-        {
-          text: "Oceans",
-          correct: false,
-        },
-        {
-          text: "Oceans",
-          correct: false,
-        },
-        {
-          text: "Oceans",
-          correct: false,
-        },
-        {
-          text: "Oceans",
-          correct: false,
-        },
-      ],
-    },
-    {
-      id: 3,
-      question: "which of the one is smallest amongst them?",
-      answers: [
-        {
-          text: "Oceans",
-          correct: false,
-        },
-        {
-          text: "Oceans",
-          correct: false,
-        },
-        {
-          text: "Oceans",
-          correct: false,
-        },
-        {
-          text: "Oceans",
-          correct: true,
-        },
-      ],
-    },
-  ];
+  const [earned, setEarned] = useState("$ 0");
+  const [questions,setQuestions ] = useState([]);
+  const getAllQuestions = () => {
+   axios.get("/api/quiz").then((res) => {
+     console.log(res);
+     setQuestions(res.data.data);
+   });
+ };
 
+ useEffect(() => {
+   getAllQuestions();
+ }, []);
+
+ console.log(questions);
   const moneyPyramid = [
     { id: 1, amount: "$100" },
     { id: 2, amount: "$200" },
@@ -94,15 +38,16 @@ let App = () => {
   ].reverse();
   return (
     <div className="app">
+     
       <div className="main">
-        {stop ? (<h1> You earned: {earned}</h1>):(
+        {stop ? (<h1 className = "endText"> You earned: {earned}</h1>):(
        <>   
           <div className="top">
           <div className="timer">30</div>
         </div>
         <div className="bottom">
           <Trivia
-            data={data}
+            questions={questions}
             setStop={setStop}
             questionNumber={questionNumber}
             setQuestionNumber={setQuestionNumber}
